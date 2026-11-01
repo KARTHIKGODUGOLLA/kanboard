@@ -69,6 +69,10 @@ class SchemaHandler extends \Kanboard\Core\Base
         $lastVersion = constant('\Kanboard\Plugin\\'.$pluginName.'\Schema\VERSION');
         $currentVersion = $this->getSchemaVersion($pluginName);
 
+        if ($currentVersion >= $lastVersion) {
+            return;
+        }
+
         try {
             $this->db->startTransaction();
             $this->db->getDriver()->disableForeignKeys();
